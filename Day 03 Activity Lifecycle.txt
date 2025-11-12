@@ -1,0 +1,148 @@
+Activity Lifecycle
+Layouts & UI Design
+Handling User Input
+
+
+01. Activity Lifecycle
+
+What you learn:
+• Understand the complete Activity Lifecycle.
+• Use lifecycle methods like onCreate(), onPause(), and onDestroy() effectively.
+• Build an app that logs lifecycle callbacks for learning and debugging.
+• Implement state-saving techniques to preserve user data.
+• Develop stable Android apps that respond gracefully to user and system actions.
+
+
+
+Detailed Explanation
+>> An Activity is one of the most important components of an Android app.
+>> It represents a single screen with a user interface — for example, a login page, a settings screen, or a game level.
+>> Understanding the Activity Lifecycle is crucial because it helps developers manage how their app behaves as users open, pause, or close it.
+
+
+1. What is the Activity Lifecycle?
+>> The Activity Lifecycle refers to the sequence of states an activity goes through from when it’s created to when it’s destroyed.
+>> Each state has a callback method that the Android system calls automatically.
+By overriding these methods, developers can control how their app responds to changes like:
+• The app being opened
+• The user switching to another app
+• The screen being rotated
+
+2. Lifecycle Flow Overview
+The main lifecycle methods are:
+Lifecycle Method and Description
+
+onCreate()
+Called when the activity is first created — initialize UI, variables, and layout here.
+
+onStart()
+Activity becomes visible but not interactive.
+
+onResume()
+Activity is visible and the user can interact with it.
+
+onPause()
+Activity is partially hidden — pause animations, stop sensors, save data.
+
+onStop()
+Activity is completely hidden — release resources.
+
+onDestroy()
+Called before the activity is destroyed permanently.
+
+onRestart()
+Called when the activity is restarting after being stopped.
+
+
+3. Typical Lifecycle Flow
+
+onCreate() → onStart() → onResume()
+    [Activity is running]
+
+onPause() → onStop()
+    [Activity is in background]
+
+onRestart() → onStart() → onResume()
+    [Activity returns to foreground]
+
+onPause() → onStop() → onDestroy()
+    [Activity is destroyed]
+
+
+
+4. Example: Logging Activity Lifecycle Callbacks
+This example demonstrates how to track lifecycle changes using Log messages.
+--------------------------------------
+package com.example.lifecycleapp
+
+import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    private val TAG = "LifecycleDemo"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        Log.d(TAG, "onCreate called")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop called")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy called")
+    }
+}
+
+Note:
+When you run this app and open Logcat in Android Studio, you’ll see messages as the activity changes states — for example, when you minimize the app or rotate the screen.
+
+
+
+
+5. State Handling in Activities
+>> When an activity is paused or stopped, the system might destroy it to free memory.
+
+To prevent data loss (like form input), you can use the onSaveInstanceState() and onRestoreInstanceState() methods.
+
+Example: Saving and Restoring State
+
+override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putString("username", "JohnDoe")
+}
+
+override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    super.onRestoreInstanceState(savedInstanceState)
+    val user = savedInstanceState.getString("username")
+    Log.d("State", "Restored username: $user")
+}
+
+Note:
+This ensures that user data (like text entered in a field) isn’t lost when the screen rotates or the activity is recreated.
