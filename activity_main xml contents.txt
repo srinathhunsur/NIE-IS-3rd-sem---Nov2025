@@ -1,0 +1,69 @@
+activity_main.xml
+
+Solution — Create the required XML layout file
+
+File location:
+app → src → main → res → layout → activity_main.xml
+
+Step-by-step to create:
+1. In Android Studio, open the Project pane (on the left).
+2. Expand:
+3. app → src → main → res → layout
+4. Right-click → New → Layout Resource File
+5. Name it: activity_main.xml
+6. Root element: ConstraintLayout (default is fine)
+7. Click OK
+
+
+
+Add this simple layout content:
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Just a label to show something on screen -->
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activity Lifecycle Demo"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+Explanation:
+• This layout displays a simple TextView at the center.
+• The MainActivity.kt file doesn’t interact with UI elements here — it only logs lifecycle events.
+• You can open Logcat in Android Studio and filter by the tag:
+• LifeCycleDemo
+(the same tag you used in Log.d(TAG, "onCreate called") etc.)
+
+🧾 Final structure:
+app/
+ ├─ src/
+ │   └─ main/
+ │       ├─ java/com/example/lifecycleapp/MainActivity.kt
+ │       ├─ res/
+ │       │   ├─ layout/activity_main.xml
+ │       │   ├─ mipmap/
+ │       │   ├─ values/
+ │       │   └─ drawable/
+ │       └─ AndroidManifest.xml
+
+Now run your app:
+• Open Logcat → Search LifecycleDemo
+• You’ll see logs like:
+• D/LifecycleDemo: onCreate called
+• D/LifecycleDemo: onStart called
+• D/LifecycleDemo: onResume called
+• When you minimize, rotate, or close the app, other lifecycle callbacks will appear (Pause, Stop, Destroy, Restart).
+
