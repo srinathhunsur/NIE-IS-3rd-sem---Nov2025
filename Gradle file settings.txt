@@ -1,0 +1,46 @@
+Gradle file settings
+
+Step 1: Change the View Mode
+1.	In the left panel of Android Studio (where you see folders like java, res, etc.),
+look at the top of that panel — there’s a dropdown (it probably says Android right now).
+2.	Click that dropdown and choose “Project” instead.
+3.	Now you’ll see the real folder structure of your app.
+It should look like this:
+YourProjectName/
+├── .gradle/
+├── app/
+│    ├── build/
+│    ├── src/
+│    ├── build.gradle   (this is what we need)
+├── build.gradle        X (this is the *project-level* one)
+├── settings.gradle
+└── gradle.properties
+
+
+Step 2: Identify the Correct File
+You should now see two build.gradle files:
+•	One directly under your project folder → project-level
+•	One inside the app folder → module-level (we want this one) ✅
+
+
+Step 3: Open and Edit It
+Open app/build.gradle and scroll down until you find a block that starts like this:
+dependencies {
+    ...
+}
+Now add this line inside that block:
+implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+Here’s how it should look:
+dependencies {
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'  // Added line
+}
+
+
+Step 4: Sync the Project
+After editing:
+•	Click “Sync Now” when prompted at the top right,
+or go to File → Sync Project with Gradle Files.
+
